@@ -1,3 +1,4 @@
-# get-started
-Get started with various projects exclusively designed for beginners.
-Feel free to suggest corrections.
+# snake-game-in-python
+This repository includes the source code for the snake game.
+## dependencies
+### pygame - rendering graphics.
