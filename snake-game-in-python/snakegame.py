@@ -1,2 +1,2 @@
-import pygame
-import random
+import pygame,random,sys
+from pygame.locals import *
