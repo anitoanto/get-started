@@ -1,22 +1,23 @@
 import pygame
 import random
 import sys
-from pygame.locals import *
+from pygame.locals import QUIT, KEYDOWN, K_UP, K_DOWN, K_LEFT, K_RIGHT
 
 grid_max = 600
 grid_size = 20
 
 
 def gameover(window, x, y, score, pdir, fpos):
-    gm_msg = pygame.font.SysFont('Arial', 32).render(
-        "GAME OVER", True, (255, 0, 0))
+    gm_msg = pygame.font.SysFont("Arial", 32).render("GAME OVER", True, (255, 0, 0))
     window.blit(gm_msg, (10, grid_max - 50))
     pygame.display.update()
     pygame.time.wait(2000)
     x = [grid_max / 2, grid_max / 2, grid_max / 2]
     y = [(grid_max / 2) - grid_size, grid_max / 2, (grid_max / 2) + grid_size]
-    fpos = (random.randint(0, (grid_max / grid_size) - 1) * grid_size,
-            random.randint(0, (grid_max / grid_size) - 1) * grid_size)
+    fpos = (
+        random.randint(0, (grid_max / grid_size) - 1) * grid_size,
+        random.randint(0, (grid_max / grid_size) - 1) * grid_size,
+    )
     score = 0
     pdir = 1
     return x, y, score, pdir, fpos
@@ -33,8 +34,10 @@ def main():
 
     food = pygame.Surface((grid_size, grid_size))
     food.fill((255, 0, 0))
-    fpos = (random.randint(0, (grid_max / grid_size) - 1) * grid_size,
-            random.randint(0, (grid_max / grid_size) - 1) * grid_size)
+    fpos = (
+        random.randint(0, (grid_max / grid_size) - 1) * grid_size,
+        random.randint(0, (grid_max / grid_size) - 1) * grid_size,
+    )
 
     snk_head = pygame.Surface((grid_size, grid_size))
     snk_head.fill((255, 255, 255))
@@ -75,28 +78,35 @@ def main():
             x.append(x[len(x) - 1])
             y.append(y[len(y) - 1])
             score += 1
-            fpos = (random.randint(0, (grid_max / grid_size) - 1) * grid_size,
-                    random.randint(0, (grid_max / grid_size) - 1) * grid_size)
+            fpos = (
+                random.randint(0, (grid_max / grid_size) - 1) * grid_size,
+                random.randint(0, (grid_max / grid_size) - 1) * grid_size,
+            )
 
         for i in range(1, len(x)):
             if x[i] == x[0] and y[i] == y[0]:
-                x, y, score, pdir, fpos = gameover(
-                    window, x, y, score, pdir, fpos)
+                x, y, score, pdir, fpos = gameover(window, x, y, score, pdir, fpos)
                 break
 
-        if x[0] < -grid_size / 2 or x[0] > grid_max - grid_size / 2 or y[0] < -grid_size / 2 or y[0] > grid_max - grid_size / 2:
+        if (
+            x[0] < -grid_size / 2
+            or x[0] > grid_max - grid_size / 2
+            or y[0] < -grid_size / 2
+            or y[0] > grid_max - grid_size / 2
+        ):
             x, y, score, pdir, fpos = gameover(window, x, y, score, pdir, fpos)
         window.fill((30, 30, 30))
         window.blit(snk_head, (x[0], y[0]))
         for i in range(1, len(x)):
             window.blit(snk, (x[i], y[i]))
         window.blit(food, fpos)
-        score_dis = pygame.font.SysFont('Arial', 48).render(
-            str(score), True, (255, 255, 0))
+        score_dis = pygame.font.SysFont("Arial", 48).render(
+            str(score), True, (255, 255, 0)
+        )
         window.blit(score_dis, (20, 20))
 
         pygame.display.update()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
